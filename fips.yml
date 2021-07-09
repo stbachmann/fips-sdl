@@ -1,0 +1,8 @@
+# fips-sdl
+---
+
+exports:
+    header-dirs:
+        - SDL/include
+    modules:
+        SDL: .
