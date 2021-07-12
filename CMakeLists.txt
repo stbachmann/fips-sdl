@@ -10,7 +10,7 @@ if (NOT FIPS_IMPORT)
 endif()
 
 # Current SDL version 2.0.9
-fips_begin_module(sdl)
+fips_begin_module(SDL)
     if(FIPS_WINDOWS)
         fips_files_ex(SDL/src/ *.c 
             EXCEPT 
@@ -84,35 +84,20 @@ fips_begin_module(sdl)
         )
     endif()
 
-    if(FIPS_EMSCRIPTEN)
-        fips_files_ex(SDL/src/ *.c 
-            EXCEPT 
-            video/qnx/*
-            render/opengles2/*
-            haptic/windows/*
-            joystick/iphoneos/*  
-            thread/generic/* 
-            hidapi/*
-        )
-    endif()
-
     fips_dir(.)
 
 fips_end_module()
-target_include_directories(sdl PUBLIC SDL/include SDL/src/hidapi/hidapi)
-target_compile_definitions(sdl PUBLIC HAVE_LIBC _THREAD_SAFE)
+target_include_directories(SDL PUBLIC SDL/include SDL/src/hidapi/hidapi)
+target_compile_definitions(SDL PUBLIC HAVE_LIBC _THREAD_SAFE)
 
 if(FIPS_LINUX)
     # TODO: Add include path for config, maybe even a custom script to generate?
-    target_compile_definitions(sdl PUBLIC USING_GENERATED_CONFIG_H)
+    target_compile_definitions(SDL PUBLIC USING_GENERATED_CONFIG_H)
 endif()
 
-# TODO: Remove test
-fips_begin_app(hello cmdline)
-    fips_files(main.cpp)
-    fips_deps(sdl)
-    
-fips_end_app()
+if(FIPS_EMSCRIPTEN)
+    message(FATAL_ERROR "When using Emscripten SDL must be linked via -s USE_SDL=2 instead.")
+endif()
 
 if (NOT FIPS_IMPORT)
     fips_finish()
