@@ -9,22 +9,31 @@ if (NOT FIPS_IMPORT)
     fips_setup()
 endif()
 
-# Current SDL version 2.0.9
+# Current SDL version 2.0.16
 fips_begin_module(SDL)
     if(FIPS_WINDOWS)
         fips_files_ex(SDL/src/ *.c 
             EXCEPT 
-            video/qnx/* 
+            video/qnx/*
+            video/os2/* 
             joystick/iphoneos/* 
             thread/pthread/* 
             thread/generic/* 
             main/* 
             core/unix/* 
             core/linux/* 
+            core/openbsd/*
+            core/os2/*
             hidapi/mac/* 
             hidapi/linux/* 
             hidapi/android/* 
             hidapi/libusb/*
+            locale/emscripten/*
+            locale/android/*
+            misc/android/*
+            misc/unix/*
+            misc/riscos/*
+            misc/vita/*
         )
 
         fips_files(
@@ -50,6 +59,7 @@ fips_begin_module(SDL)
         )
     endif()
 
+    # Not tested
     if(FIPS_MACOS)
         fips_files_ex(SDL/src/ *.c *.m
             EXCEPT 
@@ -58,15 +68,24 @@ fips_begin_module(SDL)
             haptic/windows/*
             joystick/iphoneos/* 
             thread/generic/*
-            core/unix/* 
+            core/unix/*
+            core/openbsd/*
+            core/os2/*
             hidapi/windows/* 
             hidapi/linux/* 
             hidapi/android/*
             hidapi/ios/*
             hidapi/libusb/*
+            locale/emscripten/*
+            locale/android/*
+            misc/android/*
+            misc/unix/*
+            misc/riscos/*
+            misc/vita/*
         )
     endif()
 
+    # Not tested
     if(FIPS_LINUX)
         fips_files_ex(SDL/src/ *.c *.m
             EXCEPT 
