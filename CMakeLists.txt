@@ -14,6 +14,7 @@ fips_begin_module(SDL)
     if(FIPS_WINDOWS)
         fips_files_ex(SDL/src/ *.c 
             EXCEPT 
+            audio/ps2/*
             video/qnx/*
             video/os2/* 
             joystick/iphoneos/* 
@@ -24,16 +25,20 @@ fips_begin_module(SDL)
             core/linux/* 
             core/openbsd/*
             core/os2/*
+            filesystem/psp/*
+            filesystem/ps2/*
             hidapi/mac/* 
             hidapi/linux/* 
             hidapi/android/* 
             hidapi/libusb/*
             locale/emscripten/*
             locale/android/*
+            locale/vita/*
             misc/android/*
             misc/unix/*
             misc/riscos/*
             misc/vita/*
+            misc/emscripten/*
         )
 
         fips_files(
